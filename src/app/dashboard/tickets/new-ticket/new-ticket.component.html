@@ -1,16 +1,16 @@
 <form (ngSubmit)="onSubmit(titleInput , textInput )" #form>
   <app-control >
     <label>Title</label>
-    <input name="title" id="title" [(ngModel)]="titleInput"/>
+    <input name="title" id="title" [(ngModel)]="titleInput" required/>
   </app-control>
   <app-control   >
     <label>Request</label>
-    <textarea name="request" id="request" rows="3" [(ngModel)]="textInput" ></textarea>
+    <textarea name="request" id="request" rows="3" [(ngModel)]="textInput" required></textarea>
   </app-control>
   <p>
     <button appButton>
       Submit
-      <span class="icon">⌲</span>
+      <span class="icon">-&gt;</span>
     </button>
   </p>
 </form>

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NewTicketComponent } from "./new-ticket/new-ticket.component";
 import { Ticket } from './ticket.model';
 import { TicketComponent } from "./ticket/ticket.component";
-import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-tickets',
@@ -27,7 +26,9 @@ this.tickets.push(newTicket);
 }
 onComplete(ticketId:string){
 const completedTicket  = this.tickets.find((ticket)=>ticket.id === ticketId)
-completedTicket!.status = 'closed'
+if (completedTicket) {
+  completedTicket.status = 'closed'
+}
 }
 
 }

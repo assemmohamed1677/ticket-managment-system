@@ -11,7 +11,7 @@ import { Ticket } from '../ticket.model';
 export class TicketComponent {
 @Input({required:true}) newTicket!: Ticket;
 detailsVisible =signal(false);
-@Output() complete = new EventEmitter()
+@Output() complete = new EventEmitter<string>()
 
 onToggle(){
   this.detailsVisible.set(!this.detailsVisible())

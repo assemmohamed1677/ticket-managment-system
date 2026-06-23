@@ -1,196 +1,99 @@
-# 🎟️ Angular Ticket Booking System
+﻿# Ticket Management System
 
-![Angular](https://img.shields.io/badge/Angular-17%2B-DD0031?style=flat-square&logo=angular)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript)
-![Section](https://img.shields.io/badge/Section-6-brightgreen?style=flat-square)
-![Course](https://img.shields.io/badge/Udemy-Maximilian%20Schwarzm%C3%BCller-orange?style=flat-square)
+An Angular dashboard for creating and managing support tickets. The app includes a server status widget, traffic overview, reusable dashboard cards, and a simple ticket workflow where new tickets can be submitted, expanded, and marked as completed.
 
-> A hands-on project from **Maximilian Schwarzmüller's Angular – The Complete Guide** course, covering **Section 6: Deep Dive into Components & Templates**.
+## Features
 
----
+- Create support tickets with a title and request text
+- View submitted tickets in a dashboard panel
+- Expand tickets to read their details
+- Mark open tickets as completed
+- Visual open/closed ticket status indicators
+- Server status widget with changing status state
+- Traffic summary widget
+- Reusable button, control, and dashboard item components
+- Angular standalone component architecture
 
-## 📋 Table of Contents
+## Tech Stack
 
-1. [About This Project](#about-this-project)
-2. [Key Concepts Covered](#key-concepts-covered)
-3. [Project Structure](#project-structure)
-4. [Getting Started](#getting-started)
-5. [Features](#features)
-6. [Learning Notes](#learning-notes)
+- Angular 18
+- TypeScript
+- CSS
+- Angular Forms
+- Angular standalone components
 
----
+## Project Structure
 
-## 📖 About This Project
-
-This project is a **Ticket Booking System** built as part of **Section 6** of Maximilian Schwarzmüller's Angular course on Udemy. It serves as a practical exercise to reinforce deep knowledge of Angular **Components** and **Templates**, including component communication, lifecycle hooks, content projection, and dynamic rendering.
-
-> **Course:** Angular – The Complete Guide (2024 Edition) by Maximilian Schwarzmüller · Section 6: Deep Dive into Components & Templates
-
----
-
-## 🧩 Key Concepts Covered
-
-| Concept | Description |
-|---|---|
-| `@Input()` | Passing data from parent to child components |
-| `@Output()` | Emitting events from child to parent |
-| `ng-content` | Content projection and named slots |
-| Template Variables | Using `#ref` for direct template element access |
-| `@ViewChild` | Accessing child components/elements in the class |
-| Lifecycle Hooks | `ngOnInit`, `ngOnChanges`, `ngAfterViewInit`, `ngOnDestroy` |
-| New Control Flow | `@if`, `@else`, `@for` with `track` (Angular 17+) |
-| Two-Way Binding | Using `[(ngModel)]` for form inputs |
-
-### Topics in Detail
-
-- Using `@Input()` and `@Output()` decorators for parent–child communication
-- Two-way data binding with `[(ngModel)]`
-- Template reference variables (`#ref`) and `@ViewChild`
-- Content projection with `<ng-content>` and named slots
-- Lifecycle hooks: `ngOnInit`, `ngOnChanges`, `ngAfterViewInit`, `ngOnDestroy`
-- Conditional rendering with `@if` / `@else` (new Angular control flow syntax)
-- List rendering with `@for` and `track`
-
----
-
-## 📁 Project Structure
-
-```
-ticket-booking/
-├── src/
-│   ├── app/
-│   │   ├── ticket/
-│   │   │   ├── ticket.component.ts
-│   │   │   ├── ticket.component.html
-│   │   │   └── ticket.component.css
-│   │   ├── booking-form/
-│   │   │   ├── booking-form.component.ts
-│   │   │   ├── booking-form.component.html
-│   │   │   └── booking-form.component.css
-│   │   ├── shared/
-│   │   │   └── card/
-│   │   │       ├── card.component.ts
-│   │   │       └── card.component.html
-│   │   ├── app.component.ts
-│   │   ├── app.component.html
-│   │   └── app.config.ts
-│   ├── index.html
-│   └── main.ts
-├── angular.json
-├── package.json
-└── tsconfig.json
+```text
+src/
+  app/
+    dashboard/
+      dashboard-item/      Reusable dashboard card wrapper
+      server-status/       Server status widget
+      traffic/             Traffic widget
+      tickets/             Ticket list, ticket item, and new ticket form
+    header/                App header
+    shared/
+      button/              Reusable button component/directive
+      control/             Reusable form control wrapper
+    app.component.*        Root dashboard shell
+  main.ts                  Application bootstrap
 ```
 
----
+## Getting Started
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- **Node.js** `v18+`
-- **Angular CLI** `v17+`
+Clone the repository:
 
 ```bash
-npm install -g @angular/cli
+git clone https://github.com/assemmohamed1677/ticket-managment-system.git
+cd ticket-managment-system
 ```
 
-### Installation
+Install dependencies:
 
 ```bash
-# 1. Clone or download the project
-git clone https://github.com/your-username/ticket-booking.git
-cd ticket-booking
-
-# 2. Install dependencies
 npm install
-
-# 3. Start the development server
-ng serve
 ```
 
-Open your browser and navigate to **`http://localhost:4200`**.
+Start the development server:
 
----
-
-## ✅ Features
-
-- Browse available events and their ticket details
-- Select ticket quantity per event
-- Book tickets via a reactive booking form
-- Dynamic ticket card rendering with component inputs
-- Reusable `CardComponent` using content projection
-- Event emission on successful booking via `@Output()`
-
----
-
-## 📝 Learning Notes
-
-### Component Communication Pattern
-
-```typescript
-// Parent passes data down via @Input()
-// In parent template:
-<app-ticket [event]="selectedEvent" (booked)="onBooked($event)" />
-
-// Child receives and emits via @Input() / @Output()
-@Input({ required: true }) event!: Event;
-@Output() booked = new EventEmitter<Booking>();
+```bash
+npm start
 ```
 
-### Content Projection
+Open:
 
-```html
-<!-- card.component.html -->
-<div class="card">
-  <ng-content select="[card-title]" />
-  <ng-content />
-</div>
-
-<!-- Usage in parent -->
-<app-card>
-  <h2 card-title>Event Name</h2>
-  <p>Event details go here...</p>
-</app-card>
+```text
+http://localhost:4200/
 ```
 
-### New Control Flow Syntax (Angular 17+)
+## Build
 
-```html
-@if (tickets.length > 0) {
-  @for (ticket of tickets; track ticket.id) {
-    <app-ticket [event]="ticket" />
-  }
-} @else {
-  <p>No tickets available.</p>
-}
+```bash
+npm run build
 ```
 
-### Lifecycle Hooks Usage
+The production build is generated in:
 
-```typescript
-export class TicketComponent implements OnInit, OnDestroy {
-  ngOnInit(): void {
-    // Runs once after component is initialized
-    // Good place to fetch initial data
-  }
-
-  ngOnDestroy(): void {
-    // Runs just before component is destroyed
-    // Clean up subscriptions here
-  }
-}
+```text
+dist/cmp-deep-dive
 ```
 
-> **⚠️ Note:** This project uses Angular's **new control flow syntax** (`@if`, `@for`) introduced in Angular 17. Make sure your Angular CLI version supports it before running.
+## Tests
 
----
+```bash
+npm test -- --watch=false --browsers=ChromeHeadless
+```
 
-## 📚 Resources
+## Recent Improvements
 
-- [Angular Official Docs – Components](https://angular.dev/guide/components)
-- [Angular Official Docs – Templates](https://angular.dev/guide/templates)
-- [Maximilian's Course on Udemy](https://www.udemy.com/course/the-complete-guide-to-angular-2/)
+- Added a smoke test so the test command has a valid spec file
+- Blocked empty ticket submissions
+- Removed debug console logging from the ticket form
+- Typed the ticket completion event
+- Made ticket completion safer if an ID is not found
+- Replaced a broken submit icon character with an ASCII arrow
 
----
+## Author
 
-> Built following **Maximilian Schwarzmüller's** Angular – The Complete Guide · Section 6: Deep Dive into Components & Templates
+Assem Mohamed
